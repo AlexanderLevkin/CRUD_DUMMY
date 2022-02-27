@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "c63223bb-9ed2-4339-adf1-799cbc40322b",
+		"name": "DUMMY",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DUMMY",
+			"item": [
+				{
+					"name": "CREATE",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//pm.variables.replaceIn('{{$randomFirstName}}')",
+									"pm.environment.set(\"Random_Name\",pm.variables.replaceIn('{{$randomFullName}}'))",
+									"pm.environment.set(\"Random_salary\",pm.variables.replaceIn('{{$randomPrice}})'))",
+									"pm.environment.set(\"Random_status\",pm.variables.replaceIn('{{$randomVerb}}')) ",
+									"pm.environment.set(\"Random_id\",_.random(1,100000))",
+									"pm.environment.set(\"Age\",_.random(18,70));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response status like an environment\", function () {",
+									"    pm.expect(jsonData.data.status).to.eql(pm.environment.get('Random_status'));",
+									"});  ",
+									"pm.test(\"Response name like an environment\", function () {",
+									"    pm.expect(jsonData.data.data.name).to.eql(pm.environment.get('Random_Name'));",
+									"});",
+									"pm.test(\"Response salary like an environment\", function () {",
+									"    pm.expect(jsonData.data.data.salary).to.eql(pm.environment.get('Random_salary'));",
+									"});",
+									"pm.test(\"Response Age like an environment\", function () {",
+									"    pm.expect(jsonData.data.data.age).to.eql(pm.environment.get('Age'));",
+									"});",
+									"pm.test(\"Response ID like an environment\", function () {",
+									"    pm.expect(jsonData.data.data.id).to.eql(pm.environment.get('Random_id'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t\n{\n    \"status\": \"{{Random_status}}\",\n    \"data\": {\n        \"name\": \"{{Random_Name}}\",\n        \"salary\": \"{{Random_salary}}\",\n        \"age\": {{Age}},\n        \"id\": {{Random_id}}\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://dummy.restapiexample.com/api/v1/create",
+							"protocol": "http",
+							"host": [
+								"dummy",
+								"restapiexample",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://dummy.restapiexample.com/api/v1/employee/{{Random_id}}",
+							"protocol": "http",
+							"host": [
+								"dummy",
+								"restapiexample",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"{{Random_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response status like an environment\", function () {",
+									"    pm.expect(jsonData.data.status).to.eql(pm.environment.get('Random_status'));",
+									"});  ",
+									"pm.test(\"Response name like an environment\", function () {",
+									"    pm.expect(jsonData.data.data.name).to.eql(pm.environment.get('Random_Name'));",
+									"});",
+									"pm.test(\"Response salary like an environment\", function () {",
+									"    pm.expect(jsonData.data.data.salary).to.eql(pm.environment.get('Random_salary'));",
+									"});",
+									"pm.test(\"Response Age like an environment\", function () {",
+									"    pm.expect(jsonData.data.data.age).to.eql(pm.environment.get('Age'));",
+									"});",
+									"pm.test(\"Response ID like an environment\", function () {",
+									"    pm.expect(jsonData.data.data.id).to.eql(pm.environment.get('Random_id'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"Random_Name\",pm.variables.replaceIn('{{$randomFullName}}'))",
+									"pm.environment.set(\"Random_salary\",pm.variables.replaceIn('{{$randomPrice}})'))",
+									"pm.environment.set(\"Random_status\",pm.variables.replaceIn('{{$randomVerb}}')) ",
+									"pm.environment.set(\"Random_id\",_.random(1,100000))",
+									"pm.environment.set(\"Age\",_.random(18,70));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"{{Random_status}}\",\n    \"data\": {\n        \"name\": \"{{Random_Name}}\",\n        \"salary\": \"{{Random_salary}}\",\n        \"age\": {{Age}},\n        \"id\": {{Random_id}}\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://dummy.restapiexample.com/api/v1/update/{{Random_id}}",
+							"protocol": "http",
+							"host": [
+								"dummy",
+								"restapiexample",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"update",
+								"{{Random_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://dummy.restapiexample.com/api/v1/delete/{{Random_id}}",
+							"protocol": "http",
+							"host": [
+								"dummy",
+								"restapiexample",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"delete",
+								"{{Random_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
